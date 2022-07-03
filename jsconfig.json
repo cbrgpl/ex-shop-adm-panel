@@ -1,19 +1,26 @@
 {
   "compilerOptions": {
-    "target": "es5",
-    "module": "esnext",
     "baseUrl": "./",
+    "target": "esnext",
+    "useDefineForClassFields": true,
+    "module": "esnext",
     "moduleResolution": "node",
+    "isolatedModules": true,
+    "strict": true,
+    "jsx": "preserve",
+    "sourceMap": true,
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
     "paths": {
-      "@/*": [
-        "src/*"
-      ]
+      "@/*": [ "src/*" ],
+      "@images/*": [ "src/assets/images/*" ],
+      "@scss/*": [ "src/assets/scss/*" ],
+      "@components/*": [ "src/components/*" ],
+      "@functions/*": [ "src/utils/functions/*" ],
+      "@modules/*": [ "src/utils/modules/*" ],
+
+      "js_utils/*": [ "src/utils/js_utils/index.js" ]
     },
-    "lib": [
-      "esnext",
-      "dom",
-      "dom.iterable",
-      "scripthost"
-    ]
-  }
+  },
+  "include": ["src/**/*", "src/**/*.vue"]
 }
