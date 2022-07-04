@@ -46,11 +46,30 @@
       {{ text }}
     </div>
 
+    <ZSelect
+      v-model="selected"
+      style="width: 130px;"
+      placeholder="По умолчанию"
+      :value-getter="(option) => option.pr"
+      return-object
+      :options="[{pr: 'one'}, {pr: 'two'}, {pr: 'three'}, {pr: 'four'}, {pr: 'five'}]"
+    />
+
     <ZProductCard
       style="width: 50%;"
       v-bind="product"
       @delete="deleteProduct"
     />
+
+
+
+    <!-- <ZSelect
+      v-model="selected"
+      style="width: 130px;"
+      placeholder="По умолчанию"
+      :options="['one', 'two', 'three', 'four', 'five']"
+    /> -->
+    {{ selected }}
   </div>
 </template>
 
@@ -64,6 +83,8 @@ import ZRequiredInput from '@general_components/composite/ZRequiredInput.vue'
 import ZCard from '@general_components/atomic/ZCard.vue'
 import ZProductCard from '@admin_components/composite/ZProductCard/ZProductCard.vue'
 
+import ZSelect from '@general_components/composite/ZSelect/ZSelect.vue'
+// import ZSelectOption from '@general_components/composite/ZSelect/ZSelectOption.vue'
 export default {
   name: 'TheCatalog',
   components: {
@@ -74,10 +95,13 @@ export default {
     ZProductForm,
     ZRequiredInput,
     ZCard,
-    ZProductCard
+    ZProductCard,
+    ZSelect,
+    // ZSelectOption
   },
   data() {
     return {
+      selected: '',
       text: 'zxc',
       inputError: null,
       loader: false,
