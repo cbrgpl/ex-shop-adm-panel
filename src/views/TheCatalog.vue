@@ -29,6 +29,8 @@
     >
       Select an item
     </ZButtonWithLoader>
+
+    <ZProductForm @submitted="test" />
   </div>
 </template>
 
@@ -37,7 +39,7 @@ import ZInput from '@general_components/composite/ZInput.vue'
 import ZTextarea from '@general_components/composite/ZTextarea.vue'
 import ZButton from '@general_components/atomic/ZButton.vue'
 import ZButtonWithLoader from '@general_components/composite/ZButtonWithLoader.vue'
-
+import ZProductForm from '@admin_components/composite/ZProductForm.vue'
 
 export default {
   name: 'TheCatalog',
@@ -46,6 +48,7 @@ export default {
     ZTextarea,
     ZButton,
     ZButtonWithLoader,
+    ZProductForm
   },
   data() {
     return {
