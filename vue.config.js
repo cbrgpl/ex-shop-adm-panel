@@ -18,6 +18,7 @@ module.exports = defineConfig({
         '@scss': path.resolve( __dirname, 'src', 'assets', 'scss' ),
         '@components': path.resolve( __dirname, 'src', 'components' ),
         '@functions': path.resolve( __dirname, 'src', 'utils', 'functions' ),
+        '@mixins': path.resolve(__dirname, 'src', 'utils', 'mixins'),
         '@modules': path.resolve( __dirname, 'src', 'utils', 'modules' ),
 
         'js_utils': path.resolve( __dirname, 'src', 'utils', 'js_utils' ),

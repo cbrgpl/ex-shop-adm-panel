@@ -13,21 +13,39 @@
       :error-state="inputError"
       on-error="there is error!!!"
     />
-    <button @click="toggleInputError">
-      toggle
-    </button>
+
+    <ZButton
+      disabled
+      @click="test"
+    >
+      Selecte i
+    </ZButton>
+
+    <ZButtonWithLoader
+      :loader="false"
+      @click="test"
+    >
+      Select an item
+    </ZButtonWithLoader>
+
+    <ZLoader style="opacity: 0;" />
   </div>
 </template>
 
 <script>
 import ZInput from '@components/composite/ZInput.vue'
 import ZTextarea from '@components/composite/ZTextarea.vue'
-
+import ZLoader from '@components/atomic/ZLoader.vue'
+import ZButton from '@components/atomic/ZButton.vue'
+import ZButtonWithLoader from '@components/composite/ZButtonWithLoader.vue'
 export default {
   name: 'TheCatalog',
   components: {
     ZInput,
-    ZTextarea
+    ZTextarea,
+    ZLoader,
+    ZButton,
+    ZButtonWithLoader
   },
   data() {
     return {
@@ -37,6 +55,9 @@ export default {
   methods: {
     toggleInputError() {
       this.inputError = !this.inputError
+    },
+    test(ev) {
+      console.log('test', ev)
     }
   },
 }
