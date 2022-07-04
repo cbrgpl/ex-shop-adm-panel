@@ -49,7 +49,7 @@ export default {
 	&__input {
 		padding: rem(10px) rem(16px);
 		border: 1px solid transparent;
-		border-radius: rem(4px);
+		border-radius: 4px;
 		background: $surface;
 		color: $black;
 		box-shadow: 0 2px 5px rgb(0 0 0 / 0.1);
