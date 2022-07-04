@@ -50,7 +50,6 @@ export default {
       const isLastFieldPassed = number ===  this.$options.focusFeature.nodeBuffer.length
 
       if(number < this.$options.focusFeature.nodeBuffer.length ) {
-        console.log(number)
         this.$options.focusFeature.nodeBuffer[number].focus()
         this.$options.focusFeature.focusedNodeNumber = number;
       } else if ( isLastFieldPassed ) {
