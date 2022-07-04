@@ -21,7 +21,7 @@ export default {
     size: {
       type: String,
       default: 'sm',
-      validate: ( val ) => ['sm', 'lg'].includes(val)
+      validate: ( val ) => ['sm', 'md', 'lg'].includes(val)
     },
     titled: {
       type: Boolean,
@@ -42,6 +42,9 @@ export default {
       switch(this.size) {
       case 'lg':
         this.changeSizeCSSVars(196, 24)
+        return
+      case 'md':
+        this.changeSizeCSSVars(80, 16)
         return
       default:
         return
