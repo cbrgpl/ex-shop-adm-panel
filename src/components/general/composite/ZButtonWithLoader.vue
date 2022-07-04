@@ -25,8 +25,8 @@
 </template>
 
 <script>
-import ZButton from '@components/atomic/ZButton.vue'
-import ZLoader from '@components/atomic/ZLoader.vue'
+import ZButton from '@general_components/atomic/ZButton.vue'
+import ZLoader from '@general_components/atomic/ZLoader.vue'
 
 import extenderMix from '@mixins/extender.js'
 
