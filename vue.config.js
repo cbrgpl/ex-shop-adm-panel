@@ -25,6 +25,7 @@ module.exports = defineConfig({
         '@functions': path.resolve( __dirname, 'src', 'utils', 'functions' ),
         '@mixins': path.resolve(__dirname, 'src', 'utils', 'mixins'),
         '@modules': path.resolve( __dirname, 'src', 'utils', 'modules' ),
+        '@validators': path.resolve(__dirname, 'src', 'utils', 'validators'),
 
         'js_utils': path.resolve( __dirname, 'src', 'utils', 'js_utils' ),
       }
