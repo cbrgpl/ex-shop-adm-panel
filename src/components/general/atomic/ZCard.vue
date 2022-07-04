@@ -40,7 +40,6 @@ export default {
 <style lang="scss" scoped>
 .card {
 	position: relative;
-	overflow: hidden;
 	border-radius: 4px;
 	background: $surface;
 	box-shadow: 0 20px 30px rgb(0 0 0 / 0.04), 0 6px 10px rgb(0 0 0 / 0.02);
@@ -54,6 +53,7 @@ export default {
 		align-items: center;
 		width: 100%;
 		height: 100%;
+		border-radius: inherit;
 		background: rgb(0 0 0 / 0.35);
 	}
 }

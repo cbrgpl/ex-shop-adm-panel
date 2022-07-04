@@ -45,6 +45,12 @@
 
       {{ text }}
     </div>
+
+    <ZProductCard
+      style="width: 50%;"
+      v-bind="product"
+      @delete="deleteProduct"
+    />
   </div>
 </template>
 
@@ -56,6 +62,7 @@ import ZButtonWithLoader from '@general_components/composite/ZButtonWithLoader.v
 import ZProductForm from '@admin_components/composite/ZProductForm.vue'
 import ZRequiredInput from '@general_components/composite/ZRequiredInput.vue'
 import ZCard from '@general_components/atomic/ZCard.vue'
+import ZProductCard from '@admin_components/composite/ZProductCard/ZProductCard.vue'
 
 export default {
   name: 'TheCatalog',
@@ -66,13 +73,21 @@ export default {
     ZButtonWithLoader,
     ZProductForm,
     ZRequiredInput,
-    ZCard
+    ZCard,
+    ZProductCard
   },
   data() {
     return {
       text: 'zxc',
       inputError: null,
-      loader: false
+      loader: false,
+      product: {
+        id: 0,
+        media: 'https://i.picsum.photos/id/1000/5626/3635.jpg?hmac=qWh065Fr_M8Oa3sNsdDL8ngWXv2Jb-EE49ZIn6c0P-g',
+        title: 'Наименование товара',
+        description: 'Довольно-таки интересное описание товара в несколько строк. Довольно-таки интересное описание товара в несколько строк',
+        price: 10000,
+      }
     }
   },
   methods: {
@@ -83,6 +98,13 @@ export default {
       this.$refs.card.setLoaderStateTo(!this.loader)
       this.loader = !this.loader
       console.log('test', ev)
+    },
+    deleteProduct( { id, unfreezeCard } ) {
+      console.log(id)
+
+      setTimeout(() => {
+        unfreezeCard()
+      }, 1500);
     }
   },
 }
