@@ -1,5 +1,12 @@
 <template>
   <ZFormField>
+    <template #label="props">
+      <slot
+        name="label"
+        v-bind="props"
+      />
+    </template>
+
     <template #input="{props, attrs}">
       <input
         v-bind="attrs"

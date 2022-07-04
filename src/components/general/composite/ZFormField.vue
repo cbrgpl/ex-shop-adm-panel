@@ -1,6 +1,13 @@
 <template>
   <label class="form-field__wrapper">
-    <label class="form-field__label"> {{ label }} </label>
+    <label class="form-field__label">
+      <slot
+        name="label"
+        :label="label"
+      >
+        {{ label }}
+      </slot>
+    </label>
 
     <slot
       name="input"
