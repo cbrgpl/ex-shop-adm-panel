@@ -50,7 +50,7 @@ import ZTextarea from '@general_components/composite/ZTextarea.vue'
 import ZButtonWithLoader from '@general_components/composite/ZButtonWithLoader.vue'
 
 import useVuelidate from '@vuelidate/core'
-import { minLength, required, url } from '@vuelidate/validators'
+import { minLength, required, url, numeric } from '@validators'
 
 export default {
   name: 'ZProductForm',
@@ -105,6 +105,7 @@ export default {
         },
         price: {
           required,
+          numeric
         },
       },
     }
@@ -116,6 +117,7 @@ export default {
   }
 }
 </script>
+
 <style lang="scss" scoped>
 
 </style>
