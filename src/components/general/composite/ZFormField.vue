@@ -54,6 +54,7 @@ export default {
 		color: $black;
 		box-shadow: 0 2px 5px rgb(0 0 0 / 0.1);
 		font-size: rem(16px);
+		font-family: $font;
 
 		&[data-error="true"] {
 			border-color: $danger;

@@ -20,6 +20,7 @@ export default {
 	background: $bg-color;
 	color: #fff;
 	box-shadow: 0 2px 4px rgb(0 0 0 / 0.1);
+	font-family: "Inter", sans-serif;
 	transition: all 120ms ease;
 
 	&:hover {
