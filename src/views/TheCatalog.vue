@@ -31,6 +31,16 @@
     </ZButtonWithLoader>
 
     <ZProductForm @submitted="test" />
+
+    <div style="width: 420px;">
+      <ZRequiredInput
+        v-model="text"
+        label="Required input"
+        placeholder="some required input"
+      />
+
+      {{ text }}
+    </div>
   </div>
 </template>
 
@@ -40,6 +50,7 @@ import ZTextarea from '@general_components/composite/ZTextarea.vue'
 import ZButton from '@general_components/atomic/ZButton.vue'
 import ZButtonWithLoader from '@general_components/composite/ZButtonWithLoader.vue'
 import ZProductForm from '@admin_components/composite/ZProductForm.vue'
+import ZRequiredInput from '@general_components/composite/ZRequiredInput.vue'
 
 export default {
   name: 'TheCatalog',
@@ -48,11 +59,12 @@ export default {
     ZTextarea,
     ZButton,
     ZButtonWithLoader,
-    ZProductForm
+    ZProductForm,
+    ZRequiredInput
   },
   data() {
     return {
-      text: '',
+      text: 'zxc',
       inputError: null,
     }
   },

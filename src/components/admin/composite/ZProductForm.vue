@@ -3,7 +3,7 @@
     :vuelidate="v$"
     @submitted="emitSubmitted"
   >
-    <ZInput
+    <ZRequiredInput
       v-model="form.title"
       label="Наименование товара"
       :error-state="v$.form.title.$error"
@@ -16,7 +16,7 @@
       label="Описание товара"
     />
 
-    <ZInput
+    <ZRequiredInput
       v-model="form.mediaUrl"
       label="Ссылка на изображение"
       :error-state="v$.form.mediaUrl.$error"
@@ -24,7 +24,7 @@
       @update:modelValue="v$.form.mediaUrl.$touch"
     />
 
-    <ZInput
+    <ZRequiredInput
       v-model.number="form.price"
       label="Цена"
       :error-state="v$.form.price.$error"
@@ -45,7 +45,7 @@
 
 <script>
 import ZForm from '@general_components/atomic/ZForm.vue'
-import ZInput from '@general_components/composite/ZInput.vue'
+import ZRequiredInput from '@general_components/composite/ZRequiredInput.vue'
 import ZTextarea from '@general_components/composite/ZTextarea.vue'
 import ZButtonWithLoader from '@general_components/composite/ZButtonWithLoader.vue'
 
@@ -56,7 +56,7 @@ export default {
   name: 'ZProductForm',
   components: {
     ZForm,
-    ZInput,
+    ZRequiredInput,
     ZTextarea,
     ZButtonWithLoader
   },
