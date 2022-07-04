@@ -13,10 +13,15 @@
     "esModuleInterop": true,
     "paths": {
       "@/*": [ "src/*" ],
+
       "@images/*": [ "src/assets/images/*" ],
       "@scss/*": [ "src/assets/scss/*" ],
-      "@components/*": [ "src/components/*" ],
+
+      "@general_components/*": [ "src/components/general/*" ],
+      "@admin_components/*": [ "src/components/admin/*" ],
+
       "@functions/*": [ "src/utils/functions/*" ],
+      "@mixins/*": [ "src/utils/mixins/*" ],
       "@modules/*": [ "src/utils/modules/*" ],
 
       "js_utils/*": [ "src/utils/js_utils/index.js" ]

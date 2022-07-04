@@ -14,9 +14,14 @@ module.exports = defineConfig({
     resolve: {
       alias: {
         '@': path.resolve( __dirname, 'src' ),
+
         '@images': path.resolve( __dirname, 'src', 'assets', 'images' ),
         '@scss': path.resolve( __dirname, 'src', 'assets', 'scss' ),
-        '@components': path.resolve( __dirname, 'src', 'components' ),
+
+        '@general_components': path.resolve( __dirname, 'src', 'components', 'general' ),
+        '@admin_components': path.resolve( __dirname, 'src', 'components', 'admin', ),
+
+
         '@functions': path.resolve( __dirname, 'src', 'utils', 'functions' ),
         '@mixins': path.resolve(__dirname, 'src', 'utils', 'mixins'),
         '@modules': path.resolve( __dirname, 'src', 'utils', 'modules' ),

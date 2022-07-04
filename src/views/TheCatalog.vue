@@ -33,10 +33,10 @@
 </template>
 
 <script>
-import ZInput from '@components/composite/ZInput.vue'
-import ZTextarea from '@components/composite/ZTextarea.vue'
-import ZButton from '@components/atomic/ZButton.vue'
-import ZButtonWithLoader from '@components/composite/ZButtonWithLoader.vue'
+import ZInput from '@general_components/composite/ZInput.vue'
+import ZTextarea from '@general_components/composite/ZTextarea.vue'
+import ZButton from '@general_components/atomic/ZButton.vue'
+import ZButtonWithLoader from '@general_components/composite/ZButtonWithLoader.vue'
 
 
 export default {

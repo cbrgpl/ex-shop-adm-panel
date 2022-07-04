@@ -1,30 +1,30 @@
 <template>
   <ZFormField>
     <template #input="{props, attrs}">
-      <textarea
-        class="form-field__input"
+      <input
         v-bind="attrs"
+        class="form-field__input"
         :data-error="props.errorState"
+        type="text"
         :value="attrs.modelValue"
-        cols="30"
-        rows="10"
         @input="$emit('update:modelValue', $event.target.value)"
-      />
+      >
     </template>
   </ZFormField>
 </template>
 
 <script>
-import ZFormField from '@components/composite/ZFormField.vue'
+import ZFormField from '@general_components/composite/ZFormField.vue'
 
 export default {
-  name: 'ZTextarea',
+  name: 'ZInput',
   components: {
     ZFormField
   },
-  emits: ['update:modelValue']
+  emits: ['update:modelValue'],
 }
 </script>
 
 <style lang="scss" scoped>
+
 </style>
