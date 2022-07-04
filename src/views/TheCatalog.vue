@@ -8,11 +8,13 @@
     />
 
     <ZTextarea
+      v-model="text"
       placeholder="text area holder"
       label="text area"
       :error-state="inputError"
       on-error="there is error!!!"
     />
+
 
     <ZButton
       disabled
@@ -27,28 +29,27 @@
     >
       Select an item
     </ZButtonWithLoader>
-
-    <ZLoader style="opacity: 0;" />
   </div>
 </template>
 
 <script>
 import ZInput from '@components/composite/ZInput.vue'
 import ZTextarea from '@components/composite/ZTextarea.vue'
-import ZLoader from '@components/atomic/ZLoader.vue'
 import ZButton from '@components/atomic/ZButton.vue'
 import ZButtonWithLoader from '@components/composite/ZButtonWithLoader.vue'
+
+
 export default {
   name: 'TheCatalog',
   components: {
     ZInput,
     ZTextarea,
-    ZLoader,
     ZButton,
-    ZButtonWithLoader
+    ZButtonWithLoader,
   },
   data() {
     return {
+      text: '',
       inputError: null,
     }
   },

@@ -2,10 +2,12 @@
   <ZFormField>
     <template #input="{props, attrs}">
       <input
-        class="form-field__input"
         v-bind="attrs"
+        class="form-field__input"
         :data-error="props.errorState"
         type="text"
+        :value="attrs.modelValue"
+        @input="$emit('update:modelValue', $event.target.value)"
       >
     </template>
   </ZFormField>
@@ -18,7 +20,8 @@ export default {
   name: 'ZInput',
   components: {
     ZFormField
-  }
+  },
+  emits: ['update:modelValue'],
 }
 </script>
 
