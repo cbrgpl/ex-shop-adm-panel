@@ -7,7 +7,6 @@
         :data-error="props.errorState"
         :value="attrs.modelValue"
         cols="30"
-        rows="10"
         @input="$emit('update:modelValue', $event.target.value)"
       />
     </template>

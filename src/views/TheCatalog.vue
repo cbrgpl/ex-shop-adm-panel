@@ -1,192 +1,168 @@
 <template>
-  <div>
-    <ZCard>
-      <ZButtonWithLoader
-        :loader="loaders.remove"
-        @click="removeProduct"
-      >
-        Удалить
-      </ZButtonWithLoader>
-      <ZButtonWithLoader
-        :loader="loaders.add"
-        @click="addProduct"
-      >
-        Добавить
-      </ZButtonWithLoader>
-      <ZButtonWithLoader
-        :loader="loaders.sort"
-        @click="getProducts"
-      >
-        Отсортировать
-      </ZButtonWithLoader>
+  <section class="catalog">
+    <div class="catalog__header">
+      <h5 class="catalog__title">
+        Добавление товара
+      </h5>
 
-      <div>
-        <ZSelect
-          v-model="sortField"
-          style="width: 160px;"
-          placeholder="По умолчанию"
-          :options="['Цена - убывание', 'Цена - убывание', 'Наименование']"
-        />
-      </div>
-    </ZCard>
-
-    <ZInput
-      placeholder="Input 1 holder"
-      label="The input 1"
-      :error-state="inputError"
-      :on-error="'There is error 1'"
-    />
-
-    <ZTextarea
-      v-model="text"
-      placeholder="text area holder"
-      label="text area"
-      :error-state="inputError"
-      on-error="there is error!!!"
-    />
-
-
-    <ZButton
-      disabled
-      @click="test"
-    >
-      Selecte i
-    </ZButton>
-
-    <ZButtonWithLoader
-      :loader="false"
-      @click="test"
-    >
-      Select an item
-    </ZButtonWithLoader>
-    <ZCard
-      ref="card"
-      style="width: 50%; margin: auto; padding: 24px;"
-    >
-      <ZProductForm @submitted="test" />
-    </ZCard>
-
-    <div style="width: 420px;">
-      <ZRequiredInput
-        v-model="text"
-        label="Required input"
-        placeholder="some required input"
+      <ZSelect
+        v-model="selectedSortMode"
+        class="catalog__sort-select"
+        placeholder="По умолчанию"
+        :options="sortModes"
       />
-
-      {{ text }}
     </div>
 
-    <ZSelect
-      v-model="selected"
-      style="width: 130px;"
-      placeholder="По умолчанию"
-      :value-getter="(option) => option.pr"
-      return-object
-      :options="[{pr: 'one'}, {pr: 'two'}, {pr: 'three'}, {pr: 'four'}, {pr: 'five'}]"
-    />
 
-    <!-- <ZProductCard
-      style="width: 50%;"
-      v-bind="product"
-      @delete="deleteProduct"
-    /> -->
+    <div class="catalog__content">
+      <ZCard class="catalog__form-card">
+        <ZProductForm @submitted="addProduct" />
+      </ZCard>
 
 
-
-
-    {{ selected }}
-  </div>
+      <div class="catalog__grid">
+        <ZProductCard
+          v-for="product of products"
+          :key="product.id"
+          v-bind="product"
+          @delete="deleteProduct"
+        />
+      </div>
+    </div>
+  </section>
 </template>
 
 <script>
-import ZInput from '@general_components/composite/ZInput.vue'
-import ZTextarea from '@general_components/composite/ZTextarea.vue'
-import ZButton from '@general_components/atomic/ZButton.vue'
-import ZButtonWithLoader from '@general_components/composite/ZButtonWithLoader.vue'
 import ZProductForm from '@admin_components/composite/ZProductForm.vue'
-import ZRequiredInput from '@general_components/composite/ZRequiredInput.vue'
-import ZCard from '@general_components/atomic/ZCard.vue'
-// import ZProductCard from '@admin_components/composite/ZProductCard/ZProductCard.vue'
+import ZProductCard from '@admin_components/composite/ZProductCard/ZProductCard.vue'
 
+import ZCard from '@general_components/atomic/ZCard.vue'
 import ZSelect from '@general_components/composite/ZSelect/ZSelect.vue'
 
 import { productService } from '@modules/productService'
 
+import { sortModes } from '@enums/sortModes.js'
+
+import { arrayUtils } from 'js_utils'
 export default {
   name: 'TheCatalog',
   components: {
-    ZInput,
-    ZTextarea,
-    ZButton,
-    ZButtonWithLoader,
     ZProductForm,
-    ZRequiredInput,
     ZCard,
-    // ZProductCard,
+    ZProductCard,
     ZSelect,
-    // ZSelectOption
   },
   data() {
     return {
-      loaders: {
-        add: false,
-        remove: false,
-        sort: false,
-      },
-      sortField: '',
-
-      selected: '',
-      text: 'zxc',
-      inputError: null,
-      loader: false,
-      product: {
-        media: 'https://i.picsum.photos/id/1000/5626/3635.jpg?hmac=qWh065Fr_M8Oa3sNsdDL8ngWXv2Jb-EE49ZIn6c0P-g',
-        title: 'Наименование товара',
-        description: 'Довольно-таки интересное описание товара в несколько строк. Довольно-таки интересное описание товара в несколько строк',
-        price: 10000,
-      }
+      selectedSortMode: '',
+      products: []
     }
   },
-  methods: {
-    toggleInputError() {
-      this.inputError = !this.inputError
-    },
-    test(ev) {
-      this.$refs.card.setLoaderStateTo(!this.loader)
-      this.loader = !this.loader
-      console.log('test', ev)
-    },
-    deleteProduct( { id, unfreezeCard } ) {
-      console.log(id)
-
-      setTimeout(() => {
-        unfreezeCard()
-      }, 1500);
-    },
-    async removeProduct() {
-      this.loaders.remove = true
-      const result = await productService.delete(0)
-      console.log(result)
-      this.loaders.remove = false
-    },
-    async addProduct() {
-      this.loaders.add = true
-      const result = await productService.add( this.product )
-      console.log(result)
-      this.loaders.add = false
-
-    },
-    async getProducts() {
-      this.loaders.sort = true
-
-      const products = await productService.get(this.sortField)
-
-      this.loaders.sort = false
+  computed: {
+    sortModes() {
+      return Object.keys(sortModes).map(( key ) => sortModes[key])
     }
+  },
+  watch: {
+    async selectedSortMode( selectedSortMode ) {
+      this.setProductsBySortMode(selectedSortMode)
+    }
+  },
+  created() {
+    this.setProductsBySortMode()
+  },
+  methods: {
+    async setProductsBySortMode(selectedSortMode) {
+      this.products = await productService.get(selectedSortMode)
+    },
+    async addProduct( product ) {
+      const newProduct = await productService.add(product)
+      this.products.push(newProduct)
+    },
+    async deleteProduct({ id, unfreezeCard }) {
+      await productService.delete(id)
+      arrayUtils.remove(this.products, ( product ) => product.id === id)
+    },
+
   },
 }
 </script>
 
 <style lang="scss" scoped>
+.catalog {
+	overflow-y: auto;
+	padding: rem(8px);
 
+	&__header {
+		display: flex;
+		justify-content: space-between;
+		align-items: center;
+		margin-bottom: rem(16px);
+	}
+
+	&__title {
+		font-weight: 600;
+		font-size: rem(18px);
+	}
+
+	&__sort-select {
+		width: rem(160px);
+	}
+
+	&__form-card {
+		margin-bottom: rem(20px);
+		padding: rem(6px);
+	}
+
+	&__grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(#{rem(300px)}, 1fr));
+		gap: rem(8px) rem(10px);
+	}
+}
+
+@media screen and (min-width: $lg) {
+	.catalog {
+		padding: rem(16px);
+
+		&__title {
+			font-size: rem(24px);
+		}
+
+		&__form-card {
+			padding: rem(12px);
+		}
+
+		&__grid {
+			gap: rem(16px) rem(10px);
+		}
+	}
+}
+
+@media screen and (min-width: $xl) {
+	.catalog {
+		padding: rem(32px);
+
+		&__title {
+			font-size: rem(28px);
+		}
+
+		&__content {
+			display: flex;
+			align-items: flex-start;
+		}
+
+		&__form-card {
+			width: rem(380px);
+			margin-right: rem(16px);
+			margin-bottom: 0;
+			padding: rem(24px);
+		}
+
+		&__grid {
+			grid-template-columns: repeat(3, 1fr);
+			gap: rem(16px);
+		}
+	}
+}
 </style>
