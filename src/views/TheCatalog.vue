@@ -74,9 +74,13 @@ export default {
     }
   },
   mounted() {
-    this.setProductsBySortMode()
+    this.onAppInit()
   },
   methods: {
+    async onAppInit() {
+      await this.setProductsBySortMode()
+      this.$refs.view.emitInitEvent()
+    },
     async setProductsBySortMode(selectedSortMode) {
       const view = this.$refs.view
 
