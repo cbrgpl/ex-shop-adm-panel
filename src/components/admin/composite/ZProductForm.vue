@@ -121,6 +121,12 @@ export default {
       this.$refs.form.focus()
     },
     reset() {
+      this.form = {
+        title: '',
+        description: '',
+        media: '',
+        price: '',
+      }
       this.$refs.form.reset()
     },
     setButtonLoadingState(state) {
