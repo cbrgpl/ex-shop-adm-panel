@@ -83,12 +83,12 @@ settings.json конфиг для проекта
         - images/
         - scss/
             - utils/ - дирректория для scss функционала
-            _global.scss
-            _null.scss
-            _predefined.scss - импортируется в main.js
+            - _global.scss
+            - _null.scss
+            - _predefined.scss - импортируется в main.js
     - components/
-        admin/ - дирректория для подсистемы админ-панели
-        general/ - общие компоненты проекта
+        - admin/ - дирректория для подсистемы админ-панели
+        - general/ - общие компоненты проекта
     - enums/ - дирректория для статичным структур данных
     - router/
     - store/
