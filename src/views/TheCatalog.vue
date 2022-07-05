@@ -21,15 +21,18 @@
           />
         </ZCard>
 
-
-        <div class="catalog__grid">
+        <TransitionGroup
+          tag="div"
+          class="catalog__grid"
+          name="catalog__product-anim"
+        >
           <ZProductCard
             v-for="product of products"
             :key="product.id"
             v-bind="product"
             @delete="deleteProduct"
           />
-        </div>
+        </TransitionGroup>
       </div>
     </template>
   </ZView>
@@ -157,6 +160,31 @@ export default {
 			grid-template-columns: repeat(3, 1fr);
 			gap: rem(16px);
 		}
+	}
+}
+
+.catalog__product-anim {
+	&-enter-from {
+		opacity: 0;
+		transform: translateY(-20px);
+	}
+
+	&-leave-to {
+		opacity: 0;
+		transform: translateY(30px) scale(0.85);
+	}
+
+	&-enter-active,
+	&-leave-active {
+		transition: all 160ms ease-in-out;
+	}
+
+	&-move {
+		transition: all 160ms;
+	}
+
+	&-leave-active {
+		position: absolute;
 	}
 }
 </style>
