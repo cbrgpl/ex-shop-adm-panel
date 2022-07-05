@@ -72,6 +72,10 @@ export default {
 		width: 100%;
 		height: 100%;
 	}
+
+	&__button {
+		width: 100%;
+	}
 }
 
 .button-with-loader[data-loader="true"] {

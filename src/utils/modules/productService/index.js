@@ -40,7 +40,6 @@ class ProductService {
 
     this.sortByMode(products, sortMode)
 
-    console.log('sorted', products)
     return promisedResult(products)
   }
 
