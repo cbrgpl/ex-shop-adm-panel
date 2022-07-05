@@ -37,6 +37,7 @@
 
     <template #actions>
       <ZButtonWithLoader
+        class="product-form__button"
         type="submit"
         v-bind="buttonProps"
       >
@@ -57,7 +58,7 @@ import { minLength, required, url, numeric } from '@validators'
 
 export default {
   name: 'ZProductForm',
-  expose: [ 'focus', 'reset' ],
+  expose: [ 'focus', 'reset', 'setButtonLoadingState' ],
   components: {
     ZForm,
     ZRequiredInput,
@@ -118,10 +119,12 @@ export default {
     // Public
     focus() {
       this.$refs.form.focus()
-
     },
     reset() {
       this.$refs.form.reset()
+    },
+    setButtonLoadingState(state) {
+      this.buttonProps.loader = !!state
     },
 
     // Private
@@ -135,4 +138,9 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.product-form {
+	&__button {
+		width: 100%;
+	}
+}
 </style>

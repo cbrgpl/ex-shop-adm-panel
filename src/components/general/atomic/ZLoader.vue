@@ -162,7 +162,7 @@ export default {
 .loader {
 	--loader-size: 32px;
 	--loader-circle-size: 8px;
-	--loader-color: $black;
+	--loader-color: #3f3f3f;
 
 	position: relative;
 	width: var(--loader-size);

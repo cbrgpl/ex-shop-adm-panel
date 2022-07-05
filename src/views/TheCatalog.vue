@@ -1,44 +1,45 @@
 <template>
-  <section class="catalog">
-    <div class="catalog__header">
-      <h5 class="catalog__title">
-        Добавление товара
-      </h5>
-
+  <ZView
+    ref="view"
+    title="Добавление товара"
+  >
+    <template #header>
       <ZSelect
         v-model="selectedSortMode"
         class="catalog__sort-select"
         placeholder="По умолчанию"
         :options="sortModes"
       />
-    </div>
+    </template>
+
+    <template #default>
+      <div class="catalog__content">
+        <ZCard class="catalog__form-card">
+          <ZProductForm
+            ref="productForm"
+            @submitted="addProduct"
+          />
+        </ZCard>
 
 
-    <div class="catalog__content">
-      <ZCard class="catalog__form-card">
-        <ZProductForm
-          ref="productForm"
-          @submitted="addProduct"
-        />
-      </ZCard>
-
-
-      <div class="catalog__grid">
-        <ZProductCard
-          v-for="product of products"
-          :key="product.id"
-          v-bind="product"
-          @delete="deleteProduct"
-        />
+        <div class="catalog__grid">
+          <ZProductCard
+            v-for="product of products"
+            :key="product.id"
+            v-bind="product"
+            @delete="deleteProduct"
+          />
+        </div>
       </div>
-    </div>
-  </section>
+    </template>
+  </ZView>
 </template>
 
 <script>
 import ZProductForm from '@admin_components/composite/ZProductForm.vue'
 import ZProductCard from '@admin_components/composite/ZProductCard/ZProductCard.vue'
 
+import ZView from '@general_components/atomic/ZView.vue'
 import ZCard from '@general_components/atomic/ZCard.vue'
 import ZSelect from '@general_components/composite/ZSelect/ZSelect.vue'
 
@@ -54,6 +55,7 @@ export default {
     ZCard,
     ZProductCard,
     ZSelect,
+    ZView
   },
   data() {
     return {
@@ -71,17 +73,28 @@ export default {
       this.setProductsBySortMode(selectedSortMode)
     }
   },
-  created() {
+  mounted() {
     this.setProductsBySortMode()
   },
   methods: {
     async setProductsBySortMode(selectedSortMode) {
+      const view = this.$refs.view
+
+      view.setLoaderState(true)
       this.products = await productService.get(selectedSortMode)
+      view.setLoaderState(false)
+
     },
     async addProduct( product ) {
+      const productForm = this.$refs.productForm
+
+      productForm.setButtonLoadingState(true)
+
       const newProduct = await productService.add(product)
       this.products.push(newProduct)
-      this.$refs.productForm.reset()
+
+      productForm.reset()
+      productForm.setButtonLoadingState(false)
     },
     async deleteProduct({ id, unfreezeCard }) {
       await productService.delete(id)
@@ -94,21 +107,6 @@ export default {
 
 <style lang="scss" scoped>
 .catalog {
-	overflow-y: auto;
-	padding: rem(8px);
-
-	&__header {
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		margin-bottom: rem(16px);
-	}
-
-	&__title {
-		font-weight: 600;
-		font-size: rem(18px);
-	}
-
 	&__sort-select {
 		width: rem(160px);
 	}
@@ -127,12 +125,6 @@ export default {
 
 @media screen and (min-width: $lg) {
 	.catalog {
-		padding: rem(16px);
-
-		&__title {
-			font-size: rem(24px);
-		}
-
 		&__form-card {
 			padding: rem(12px);
 		}
@@ -145,12 +137,6 @@ export default {
 
 @media screen and (min-width: $xl) {
 	.catalog {
-		padding: rem(32px);
-
-		&__title {
-			font-size: rem(28px);
-		}
-
 		&__content {
 			display: flex;
 			align-items: flex-start;
