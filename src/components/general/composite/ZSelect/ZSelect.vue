@@ -120,7 +120,7 @@ export default {
 	&__list {
 		position: absolute;
 		top: calc(100% + 8px);
-		z-index: 1;
+		z-index: 20;
 		width: 100%;
 		border-radius: 4px;
 		background: $surface;
