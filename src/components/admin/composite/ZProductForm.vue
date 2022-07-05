@@ -1,5 +1,6 @@
 <template>
   <ZForm
+    ref="form"
     :vuelidate="v$"
     @submitted="emitSubmitted"
   >
@@ -19,11 +20,11 @@
     />
 
     <ZRequiredInput
-      v-model="form.mediaUrl"
+      v-model="form.media"
       label="Ссылка на изображение"
-      :error-state="v$.form.mediaUrl.$error"
-      :on-error="v$.form.mediaUrl.$errors[0]?.$message"
-      @update:modelValue="v$.form.mediaUrl.$touch"
+      :error-state="v$.form.media.$error"
+      :on-error="v$.form.media.$errors[0]?.$message"
+      @update:modelValue="v$.form.media.$touch"
     />
 
     <ZRequiredInput
@@ -56,6 +57,7 @@ import { minLength, required, url, numeric } from '@validators'
 
 export default {
   name: 'ZProductForm',
+  expose: [ 'focus', 'reset' ],
   components: {
     ZForm,
     ZRequiredInput,
@@ -77,7 +79,7 @@ export default {
       form: {
         title: '',
         description: '',
-        mediaUrl: '',
+        media: '',
         price: '',
       }
     }
@@ -101,7 +103,7 @@ export default {
           required,
           minLength: minLength(4)
         },
-        mediaUrl: {
+        media: {
           required,
           url,
         },
@@ -113,9 +115,21 @@ export default {
     }
   },
   methods: {
-    emitSubmitted() {
-      this.$emit('submitted', this.form)
+    // Public
+    focus() {
+      this.$refs.form.focus()
+
     },
+    reset() {
+      this.$refs.form.reset()
+    },
+
+    // Private
+    emitSubmitted() {
+      const clone = Object.assign({}, this.form)
+      this.$emit('submitted', clone)
+    },
+
   }
 }
 </script>

@@ -16,7 +16,10 @@
 
     <div class="catalog__content">
       <ZCard class="catalog__form-card">
-        <ZProductForm @submitted="addProduct" />
+        <ZProductForm
+          ref="productForm"
+          @submitted="addProduct"
+        />
       </ZCard>
 
 
@@ -78,6 +81,7 @@ export default {
     async addProduct( product ) {
       const newProduct = await productService.add(product)
       this.products.push(newProduct)
+      this.$refs.productForm.reset()
     },
     async deleteProduct({ id, unfreezeCard }) {
       await productService.delete(id)

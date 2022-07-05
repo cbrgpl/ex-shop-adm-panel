@@ -23,7 +23,7 @@ export default {
     nodeBuffer: [],
     focusedNodeNumber: 0,
   },
-  expose: [ 'focus' ],
+  expose: [ 'focus', 'reset', ],
   props: {
     vuelidate: {
       type: Object,
@@ -39,6 +39,9 @@ export default {
     // Public
     focus() {
       this.setFocusOn(0)
+    },
+    reset() {
+      this.$refs.form.reset()
     },
 
     // Private
