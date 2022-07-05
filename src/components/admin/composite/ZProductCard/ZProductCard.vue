@@ -125,10 +125,15 @@ export default {
 	}
 
 	&__description {
+		/* stylelint-disable-next-line value-no-vendor-prefix */
+		display: -webkit-box;
 		flex-grow: 1;
+		overflow: hidden;
 		margin-bottom: rem(32px);
 		font-weight: 400;
 		font-size: rem(16px);
+		-webkit-line-clamp: 4;
+		-webkit-box-orient: vertical;
 	}
 
 	&__price {
