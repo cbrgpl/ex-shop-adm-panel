@@ -20,7 +20,7 @@ class ProductService {
   }
 
   add( product ) {
-    const products = this.getLocalStorageProducts() || []
+    const products = this.getLocalStorageProducts()
 
     product.id = this.generateProductId(products)
 
@@ -64,7 +64,7 @@ class ProductService {
   }
 
   getLocalStorageProducts() {
-    return JSON.parse(localStorage.getItem('products'))
+    return JSON.parse(localStorage.getItem('products')) || []
   }
 
   setLocalStorageProducts( products ) {
