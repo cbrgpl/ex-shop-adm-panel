@@ -13,6 +13,8 @@
 
     <ZTextarea
       v-model="form.description"
+      class="product-form__textarea"
+      rows="5"
       label="Описание товара"
     />
 
@@ -119,5 +121,4 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-
 </style>

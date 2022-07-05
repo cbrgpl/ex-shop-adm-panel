@@ -18,6 +18,8 @@ module.exports = defineConfig({
         '@images': path.resolve( __dirname, 'src', 'assets', 'images' ),
         '@scss': path.resolve( __dirname, 'src', 'assets', 'scss' ),
 
+        '@enums': path.resolve(__dirname, 'src', 'enums'),
+
         '@general_components': path.resolve( __dirname, 'src', 'components', 'general' ),
         '@admin_components': path.resolve( __dirname, 'src', 'components', 'admin', ),
 

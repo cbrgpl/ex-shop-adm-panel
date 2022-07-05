@@ -1,4 +1,5 @@
 import { arrayUtils } from 'js_utils'
+import { sortModes } from '@enums/sortModes.js'
 
 const randomTime = () => 1500 + Math.random() * 3000
 const promisedResult = ( result ) => (
@@ -34,23 +35,24 @@ class ProductService {
   }
 
 
-  get( sortMode = 'По умолчанию' ) {
+  get( sortMode ) {
     const products = this.getLocalStorageProducts()
 
     this.sortByMode(products, sortMode)
 
+    console.log('sorted', products)
     return promisedResult(products)
   }
 
   sortByMode( products, sortMode) {
     switch(sortMode) {
-    case 'Цена - убывание':
-      products.sort(( a, b ) => a.price + b.price)
+    case sortModes.priceDesc:
+      products.sort(( a, b ) => b.price - a.price)
       return
-    case 'Цена - убывание':
+    case sortModes.priceAsc:
       products.sort(( a, b ) => a.price - b.price)
       return
-    case 'Наименование':
+    case sortModes.title:
       products.sort((a, b) => {
         if (a.title < b.title) {return -1;}
         if (a.title > b.title) {return 1;}
