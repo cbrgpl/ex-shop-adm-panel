@@ -110,7 +110,7 @@ import ZCard from '@general_components/atomic/ZCard.vue'
 
 import ZSelect from '@general_components/composite/ZSelect/ZSelect.vue'
 
-import { backend } from '@modules/backend'
+import { productService } from '@modules/productService'
 
 export default {
   name: 'TheCatalog',
@@ -165,13 +165,13 @@ export default {
     },
     async removeProduct() {
       this.loaders.remove = true
-      const result = await backend.remove(0)
+      const result = await productService.delete(0)
       console.log(result)
       this.loaders.remove = false
     },
     async addProduct() {
       this.loaders.add = true
-      const result = await backend.add( this.product )
+      const result = await productService.add( this.product )
       console.log(result)
       this.loaders.add = false
 
@@ -179,7 +179,7 @@ export default {
     async getProducts() {
       this.loaders.sort = true
 
-      const products = await backend.get(this.sortField)
+      const products = await productService.get(this.sortField)
 
       this.loaders.sort = false
     }
