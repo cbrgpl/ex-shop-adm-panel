@@ -21,7 +21,7 @@
       <p class="product-card__description">
         {{ description }}
       </p>
-      <strong class="product-card__price"> {{ price }} руб. </strong>
+      <strong class="product-card__price"> {{ splittedPrice }} руб. </strong>
     </div>
   </ZCard>
 </template>
@@ -30,6 +30,8 @@
 import ZCard from '@general_components/atomic/ZCard.vue'
 
 import DeleteButton from './partials/DeleteButton.vue'
+
+import { splitPrice } from '@functions/splitPrice.js'
 
 export default {
   name: 'ZProductCard',
@@ -65,6 +67,11 @@ export default {
       deleteButtonDisabled: false,
     }
   },
+  computed: {
+    splittedPrice() {
+      return splitPrice(this.price)
+    }
+  },
   methods: {
     emitDelete() {
       this.$refs.card.setLoaderStateTo(true)
@@ -86,6 +93,8 @@ export default {
 <style lang="scss" scoped>
 .product-card {
 	position: relative;
+	display: flex;
+	flex-direction: column;
 
 	&__delete-button {
 		position: absolute;
@@ -103,6 +112,9 @@ export default {
 	}
 
 	&__content {
+		display: flex;
+		flex-grow: 1;
+		flex-direction: column;
 		padding: rem(24px);
 	}
 
@@ -113,6 +125,7 @@ export default {
 	}
 
 	&__description {
+		flex-grow: 1;
 		margin-bottom: rem(32px);
 		font-weight: 400;
 		font-size: rem(16px);
