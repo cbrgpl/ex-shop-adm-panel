@@ -8,8 +8,8 @@ const promisedResult = ( result ) => (
     }, randomTime() );
   })
 )
-class Backend {
-  remove(id) {
+class ProductService {
+  delete(id) {
     const products = this.getLocalStorageProducts()
 
     arrayUtils.remove(products, ( product ) => product.id === id  )
@@ -21,7 +21,7 @@ class Backend {
   add( product ) {
     const products = this.getLocalStorageProducts() || []
 
-    product.id = this.getProductId(products)
+    product.id = this.generateProductId(products)
 
     products.push(product)
 
@@ -29,7 +29,7 @@ class Backend {
     return promisedResult( product )
   }
 
-  getProductId( products ) {
+  generateProductId( products ) {
     return products.length === 0 ? 0 : products[products.length - 1].id + 1
   }
 
@@ -37,12 +37,12 @@ class Backend {
   get( sortMode = 'По умолчанию' ) {
     const products = this.getLocalStorageProducts()
 
-    this.sortProducts(products, sortMode)
+    this.sortByMode(products, sortMode)
 
     return promisedResult(products)
   }
 
-  sortProducts( products, sortMode) {
+  sortByMode( products, sortMode) {
     switch(sortMode) {
     case 'Цена - убывание':
       products.sort(( a, b ) => a.price + b.price)
@@ -72,4 +72,4 @@ class Backend {
 
 }
 
-export const backend = new Backend()
+export const productService = new ProductService()
