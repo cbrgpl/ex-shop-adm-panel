@@ -5,6 +5,7 @@
         {{ title }}
       </div>
 
+
       <slot name="header" />
     </div>
 
@@ -27,7 +28,7 @@ import ZLoader from '@general_components/atomic/ZLoader.vue'
 
 export default {
   name: 'ZView',
-  expose: ['setLoaderState'],
+  expose: ['setLoaderState', 'emitInitEvent'],
   components: {
     ZLoader
   },
@@ -46,7 +47,10 @@ export default {
     // Public
     setLoaderState( state ) {
       this.loader = state
-    }
+    },
+    emitInitEvent() {
+      this.$emit('viewInited')
+    },
   }
 }
 </script>
