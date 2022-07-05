@@ -125,6 +125,7 @@ export default {
 
 	&__grid {
 		display: grid;
+		flex-grow: 1;
 		grid-template-columns: repeat(auto-fit, minmax(#{rem(300px)}, 1fr));
 		gap: rem(8px) rem(10px);
 	}
