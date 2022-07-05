@@ -42,6 +42,7 @@ export default {
     },
     reset() {
       this.$refs.form.reset()
+      this.vuelidate.$reset()
     },
 
     // Private
