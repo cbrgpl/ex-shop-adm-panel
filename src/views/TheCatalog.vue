@@ -1,5 +1,35 @@
 <template>
   <div>
+    <ZCard>
+      <ZButtonWithLoader
+        :loader="loaders.remove"
+        @click="removeProduct"
+      >
+        Удалить
+      </ZButtonWithLoader>
+      <ZButtonWithLoader
+        :loader="loaders.add"
+        @click="addProduct"
+      >
+        Добавить
+      </ZButtonWithLoader>
+      <ZButtonWithLoader
+        :loader="loaders.sort"
+        @click="getProducts"
+      >
+        Отсортировать
+      </ZButtonWithLoader>
+
+      <div>
+        <ZSelect
+          v-model="sortField"
+          style="width: 160px;"
+          placeholder="По умолчанию"
+          :options="['Цена - убывание', 'Цена - убывание', 'Наименование']"
+        />
+      </div>
+    </ZCard>
+
     <ZInput
       placeholder="Input 1 holder"
       label="The input 1"
@@ -55,20 +85,15 @@
       :options="[{pr: 'one'}, {pr: 'two'}, {pr: 'three'}, {pr: 'four'}, {pr: 'five'}]"
     />
 
-    <ZProductCard
+    <!-- <ZProductCard
       style="width: 50%;"
       v-bind="product"
       @delete="deleteProduct"
-    />
-
-
-
-    <!-- <ZSelect
-      v-model="selected"
-      style="width: 130px;"
-      placeholder="По умолчанию"
-      :options="['one', 'two', 'three', 'four', 'five']"
     /> -->
+
+
+
+
     {{ selected }}
   </div>
 </template>
@@ -81,10 +106,12 @@ import ZButtonWithLoader from '@general_components/composite/ZButtonWithLoader.v
 import ZProductForm from '@admin_components/composite/ZProductForm.vue'
 import ZRequiredInput from '@general_components/composite/ZRequiredInput.vue'
 import ZCard from '@general_components/atomic/ZCard.vue'
-import ZProductCard from '@admin_components/composite/ZProductCard/ZProductCard.vue'
+// import ZProductCard from '@admin_components/composite/ZProductCard/ZProductCard.vue'
 
 import ZSelect from '@general_components/composite/ZSelect/ZSelect.vue'
-// import ZSelectOption from '@general_components/composite/ZSelect/ZSelectOption.vue'
+
+import { backend } from '@modules/backend'
+
 export default {
   name: 'TheCatalog',
   components: {
@@ -95,18 +122,24 @@ export default {
     ZProductForm,
     ZRequiredInput,
     ZCard,
-    ZProductCard,
+    // ZProductCard,
     ZSelect,
     // ZSelectOption
   },
   data() {
     return {
+      loaders: {
+        add: false,
+        remove: false,
+        sort: false,
+      },
+      sortField: '',
+
       selected: '',
       text: 'zxc',
       inputError: null,
       loader: false,
       product: {
-        id: 0,
         media: 'https://i.picsum.photos/id/1000/5626/3635.jpg?hmac=qWh065Fr_M8Oa3sNsdDL8ngWXv2Jb-EE49ZIn6c0P-g',
         title: 'Наименование товара',
         description: 'Довольно-таки интересное описание товара в несколько строк. Довольно-таки интересное описание товара в несколько строк',
@@ -129,6 +162,26 @@ export default {
       setTimeout(() => {
         unfreezeCard()
       }, 1500);
+    },
+    async removeProduct() {
+      this.loaders.remove = true
+      const result = await backend.remove(0)
+      console.log(result)
+      this.loaders.remove = false
+    },
+    async addProduct() {
+      this.loaders.add = true
+      const result = await backend.add( this.product )
+      console.log(result)
+      this.loaders.add = false
+
+    },
+    async getProducts() {
+      this.loaders.sort = true
+
+      const products = await backend.get(this.sortField)
+
+      this.loaders.sort = false
     }
   },
 }
