@@ -71,6 +71,9 @@ export default {
       return splitPrice( this.price )
     }
   },
+  beforeUnmount() {
+    this.hardcoreCardWidth()
+  },
   methods: {
     emitDelete() {
       this.$refs.card.setLoaderStateTo( true )
@@ -83,6 +86,11 @@ export default {
     unfreezeCard() {
       this.$refs.card.setLoaderStateTo( false )
       this.deleteButtonDisabled = false
+    },
+    hardcoreCardWidth() {
+      console.log( 'hard' )
+      const cardWidth = this.$refs.card.$el.getBoundingClientRect().width
+      this.$refs.card.$el.style.width = `${ cardWidth }px`
     }
   }
 
@@ -119,6 +127,11 @@ export default {
 
   &__title {
     margin-bottom: rem(16px);
+    display: -webkit-box;
+    overflow: hidden;
+    word-wrap: anywhere;
+    -webkit-line-clamp: 1;
+    -webkit-box-orient: vertical;
     font-weight: 600;
     font-size: rem(20px);
   }
@@ -131,6 +144,7 @@ export default {
     margin-bottom: rem(32px);
     font-weight: 400;
     font-size: rem(16px);
+    word-wrap: anywhere;
     -webkit-line-clamp: 4;
     -webkit-box-orient: vertical;
   }
