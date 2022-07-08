@@ -1,24 +1,21 @@
-<template>
+<template >
   <div
     v-bind="wrapperAttrs"
     :data-loader="`${loader}`"
-    class="button-with-loader"
-  >
-    <div @click.stop="emitClick">
-      <zButton
+    class="button-with-loader" >
+    <div @click.stop="emitClick" >
+      <ZButton
         v-bind="attrs"
-        class="button-with-loader__button"
-      >
-        <span class="button-with-loader__text">
+        class="button-with-loader__button" >
+        <span class="button-with-loader__text" >
           <slot />
         </span>
-      </zButton>
+      </ZButton>
 
       <div
         v-show="loader"
-        class="button-with-loader__loader-wrapper"
-      >
-        <zLoader color="white" />
+        class="button-with-loader__loader-wrapper" >
+        <ZLoader color="white" />
       </div>
     </div>
   </div>
@@ -36,21 +33,21 @@ export default {
     ZButton,
     ZLoader
   },
-  mixins: [extenderMix],
+  mixins: [ extenderMix ],
   props: {
     loader: {
       type: Boolean,
       required: true,
     }
   },
-  emits: ['click'],
+  emits: [ 'click' ],
   methods: {
-    emitClick($ev) {
-      if(this.loader || Object.keys(this.attrs).includes('disabled')) {
+    emitClick( $ev ) {
+      if( this.loader || Object.keys( this.attrs ).includes( 'disabled' ) ) {
         return
       }
 
-      this.$emit('click', $ev)
+      this.$emit( 'click', $ev )
     }
   }
 }
@@ -58,30 +55,30 @@ export default {
 
 <style lang="scss" scoped>
 .button-with-loader {
-	position: relative;
-	display: inline-block;
-	cursor: pointer;
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
 
-	&__loader-wrapper {
-		position: absolute;
-		top: 0;
-		left: 0;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		width: 100%;
-		height: 100%;
-	}
+  &__loader-wrapper {
+    position: absolute;
+    top: 0;
+    left: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+  }
 
-	&__button {
-		width: 100%;
-	}
+  &__button {
+    width: 100%;
+  }
 }
 
-.button-with-loader[data-loader="true"] {
-	& .button-with-loader__text {
-		opacity: 0;
-	}
+.button-with-loader[data-loader='true'] {
+  & .button-with-loader__text {
+    opacity: 0;
+  }
 }
 
 </style>

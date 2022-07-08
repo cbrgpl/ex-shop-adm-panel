@@ -1,7 +1,7 @@
-<template>
-  <section class="view">
-    <div class="view__header">
-      <div class="view__title">
+<template >
+  <section class="view" >
+    <div class="view__header" >
+      <div class="view__title" >
         {{ title }}
       </div>
 
@@ -13,12 +13,10 @@
 
     <div
       v-if="loader"
-      class="view__loader-wrapper"
-    >
+      class="view__loader-wrapper" >
       <ZLoader
         size="lg"
-        color="black"
-      />
+        color="black" />
     </div>
   </section>
 </template>
@@ -28,7 +26,7 @@ import ZLoader from '@general_components/atomic/ZLoader.vue'
 
 export default {
   name: 'ZView',
-  expose: ['setLoaderState', 'emitInitEvent'],
+  expose: [ 'setLoaderState', 'emitInitEvent' ],
   components: {
     ZLoader
   },
@@ -49,7 +47,7 @@ export default {
       this.loader = state
     },
     emitInitEvent() {
-      this.$emit('viewInited')
+      this.$emit( 'viewInited' )
     },
   }
 }
@@ -57,48 +55,48 @@ export default {
 
 <style lang="scss" scoped>
 .view {
-	overflow-y: auto;
-	height: 100vh;
-	padding: rem(8px);
+  overflow-y: auto;
+  height: 100vh;
+  padding: rem(8px);
 
-	&__header {
-		display: flex;
-		justify-content: space-between;
-		align-items: center;
-		margin-bottom: rem(16px);
-	}
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: rem(16px);
+  }
 
-	&__loader-wrapper {
-		position: fixed;
-		top: 0;
-		left: 0;
-		z-index: 1000;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		width: 100vw;
-		height: 100vh;
-		background: rgb(0 0 0 / 0.2);
-	}
+  &__loader-wrapper {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100vw;
+    height: 100vh;
+    background: rgb(0 0 0 / 20%);
+  }
 }
 
 @media screen and (min-width: $lg) {
-	.view {
-		padding: rem(16px);
+  .view {
+    padding: rem(16px);
 
-		&__title {
-			font-size: rem(24px);
-		}
-	}
+    &__title {
+      font-size: rem(24px);
+    }
+  }
 }
 
 @media screen and (min-width: $xl) {
-	.view {
-		padding: rem(32px);
+  .view {
+    padding: rem(32px);
 
-		&__title {
-			font-size: rem(28px);
-		}
-	}
+    &__title {
+      font-size: rem(28px);
+    }
+  }
 }
 </style>

@@ -1,14 +1,13 @@
-<template>
-  <div class="form__wrapper">
+<template >
+  <div class="form__wrapper" >
     <form
       ref="form"
       class="form"
       @submit.prevent.stop="emitSubmit"
-      @keypress.enter.prevent="focusNextField"
-    >
+      @keypress.enter.prevent="focusNextField" >
       <slot />
 
-      <div class="form__actions">
+      <div class="form__actions" >
         <slot name="actions" />
       </div>
     </form>
@@ -23,14 +22,14 @@ export default {
     nodeBuffer: [],
     focusedNodeNumber: 0,
   },
-  expose: [ 'focus', 'reset', ],
+  expose: [ 'focus', 'reset' ],
   props: {
     vuelidate: {
       type: Object,
       required: true,
     }
   },
-  emits: ['submitted'],
+  emits: [ 'submitted' ],
   mounted() {
     this.bufferInputs()
     this.focus()
@@ -38,7 +37,7 @@ export default {
   methods: {
     // Public
     focus() {
-      this.setFocusOn(0)
+      this.setFocusOn( 0 )
     },
     reset() {
       this.$refs.form.reset()
@@ -48,14 +47,14 @@ export default {
     // Private
     focusNextField() {
       const focusedNodeNumber = this.$options.focusFeature.focusedNodeNumber
-      this.setFocusOn(focusedNodeNumber + 1)
+      this.setFocusOn( focusedNodeNumber + 1 )
     },
-    setFocusOn(number) {
+    setFocusOn( number ) {
       const isLastFieldPassed = number ===  this.$options.focusFeature.nodeBuffer.length
 
-      if(number < this.$options.focusFeature.nodeBuffer.length ) {
-        this.$options.focusFeature.nodeBuffer[number].focus()
-        this.$options.focusFeature.focusedNodeNumber = number;
+      if( number < this.$options.focusFeature.nodeBuffer.length ) {
+        this.$options.focusFeature.nodeBuffer[ number ].focus()
+        this.$options.focusFeature.focusedNodeNumber = number
       } else if ( isLastFieldPassed ) {
         this.emitSubmit()
       }
@@ -64,14 +63,14 @@ export default {
       this.vuelidate.$reset()
       this.vuelidate.$touch()
 
-      if(this.vuelidate.$error) {
+      if( this.vuelidate.$error ) {
         return
       }
 
-      this.$emit('submitted')
+      this.$emit( 'submitted' )
     },
     bufferInputs() {
-      const nodes = this.$refs.form.querySelectorAll('.form-field__input')
+      const nodes = this.$refs.form.querySelectorAll( '.form-field__input' )
 
       this.$options.focusFeature.nodeBuffer = [ ...nodes ]
     }

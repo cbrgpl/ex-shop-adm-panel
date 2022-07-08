@@ -1,37 +1,32 @@
-<template>
+<template >
   <ZView
     ref="view"
-    title="Добавление товара"
-  >
-    <template #header>
+    title="Добавление товара" >
+    <template #header >
       <ZSelect
         v-model="selectedSortMode"
         class="catalog__sort-select"
         placeholder="По умолчанию"
-        :options="sortModes"
-      />
+        :options="sortModes" />
     </template>
 
-    <template #default>
-      <div class="catalog__content">
-        <ZCard class="catalog__form-card">
+    <template #default >
+      <div class="catalog__content" >
+        <ZCard class="catalog__form-card" >
           <ZProductForm
             ref="productForm"
-            @submitted="addProduct"
-          />
+            @submitted="addProduct" />
         </ZCard>
 
         <TransitionGroup
           tag="div"
           class="catalog__grid"
-          name="catalog__product-anim"
-        >
+          name="catalog__product-anim" >
           <ZProductCard
             v-for="product of products"
             :key="product.id"
             v-bind="product"
-            @delete="deleteProduct"
-          />
+            @delete="deleteProduct" />
         </TransitionGroup>
       </div>
     </template>
@@ -68,12 +63,12 @@ export default {
   },
   computed: {
     sortModes() {
-      return Object.keys(sortModes).map(( key ) => sortModes[key])
+      return Object.keys( sortModes ).map( ( key ) => sortModes[ key ] )
     }
   },
   watch: {
     async selectedSortMode( selectedSortMode ) {
-      this.setProductsBySortMode(selectedSortMode)
+      this.setProductsBySortMode( selectedSortMode )
     }
   },
   mounted() {
@@ -84,28 +79,28 @@ export default {
       await this.setProductsBySortMode()
       this.$refs.view.emitInitEvent()
     },
-    async setProductsBySortMode(selectedSortMode) {
+    async setProductsBySortMode( selectedSortMode ) {
       const view = this.$refs.view
 
-      view.setLoaderState(true)
-      this.products = await productService.get(selectedSortMode)
-      view.setLoaderState(false)
+      view.setLoaderState( true )
+      this.products = await productService.get( selectedSortMode )
+      view.setLoaderState( false )
 
     },
     async addProduct( product ) {
       const productForm = this.$refs.productForm
 
-      productForm.setButtonLoadingState(true)
+      productForm.setButtonLoadingState( true )
 
-      const newProduct = await productService.add(product)
-      this.products.push(newProduct)
+      const newProduct = await productService.add( product )
+      this.products.push( newProduct )
 
       productForm.reset()
-      productForm.setButtonLoadingState(false)
+      productForm.setButtonLoadingState( false )
     },
-    async deleteProduct({ id, unfreezeCard }) {
-      await productService.delete(id)
-      arrayUtils.remove(this.products, ( product ) => product.id === id)
+    async deleteProduct( { id } ) {
+      await productService.delete( id )
+      arrayUtils.remove( this.products, ( product ) => product.id === id )
     },
 
   },
@@ -114,78 +109,78 @@ export default {
 
 <style lang="scss" scoped>
 .catalog {
-	&__sort-select {
-		width: rem(160px);
-	}
+  &__sort-select {
+    width: rem(160px);
+  }
 
-	&__form-card {
-		margin-bottom: rem(20px);
-		padding: rem(6px);
-	}
+  &__form-card {
+    margin-bottom: rem(20px);
+    padding: rem(6px);
+  }
 
-	&__grid {
-		display: grid;
-		flex-grow: 1;
-		grid-template-columns: repeat(auto-fit, minmax(#{rem(300px)}, 1fr));
-		gap: rem(8px) rem(10px);
-	}
+  &__grid {
+    display: grid;
+    flex-grow: 1;
+    grid-template-columns: repeat(auto-fit, minmax(#{rem(300px)}, 1fr));
+    gap: rem(8px) rem(10px);
+  }
 }
 
 @media screen and (min-width: $lg) {
-	.catalog {
-		&__form-card {
-			padding: rem(12px);
-		}
+  .catalog {
+    &__form-card {
+      padding: rem(12px);
+    }
 
-		&__grid {
-			gap: rem(16px) rem(10px);
-		}
-	}
+    &__grid {
+      gap: rem(16px) rem(10px);
+    }
+  }
 }
 
 @media screen and (min-width: $xl) {
-	.catalog {
-		&__content {
-			display: flex;
-			align-items: flex-start;
-		}
+  .catalog {
+    &__content {
+      display: flex;
+      align-items: flex-start;
+    }
 
-		&__form-card {
-			width: rem(380px);
-			margin-right: rem(16px);
-			margin-bottom: 0;
-			padding: rem(24px);
-		}
+    &__form-card {
+      width: rem(380px);
+      margin-right: rem(16px);
+      margin-bottom: 0;
+      padding: rem(24px);
+    }
 
-		&__grid {
-			grid-template-columns: repeat(3, 1fr);
-			gap: rem(16px);
-		}
-	}
+    &__grid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: rem(16px);
+    }
+  }
 }
 
 .catalog__product-anim {
-	&-enter-from {
-		opacity: 0;
-		transform: translateY(-20px);
-	}
+  &-enter-from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
 
-	&-leave-to {
-		opacity: 0;
-		transform: translateY(30px) scale(0.85);
-	}
+  &-leave-to {
+    opacity: 0;
+    transform: translateY(30px) scale(0.85);
+  }
 
-	&-enter-active,
-	&-leave-active {
-		transition: all 160ms ease-in-out;
-	}
+  &-enter-active,
+  &-leave-active {
+    transition: all 160ms ease-in-out;
+  }
 
-	&-move {
-		transition: all 160ms;
-	}
+  &-move {
+    transition: all 160ms;
+  }
 
-	&-leave-active {
-		position: absolute;
-	}
+  &-leave-active {
+    position: absolute;
+  }
 }
 </style>

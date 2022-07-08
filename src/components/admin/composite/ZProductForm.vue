@@ -1,46 +1,40 @@
-<template>
+<template >
   <ZForm
     ref="form"
     :vuelidate="v$"
-    @submitted="emitSubmitted"
-  >
+    @submitted="emitSubmitted" >
     <ZRequiredInput
       v-model="form.title"
       label="Наименование товара"
       :error-state="v$.form.title.$error"
       :on-error="v$.form.title.$errors[0]?.$message"
-      @update:modelValue="v$.form.title.$touch"
-    />
+      @update:modelValue="v$.form.title.$touch" />
 
     <ZTextarea
       v-model="form.description"
       class="product-form__textarea"
       rows="5"
-      label="Описание товара"
-    />
+      label="Описание товара" />
 
     <ZRequiredInput
       v-model="form.media"
       label="Ссылка на изображение"
       :error-state="v$.form.media.$error"
       :on-error="v$.form.media.$errors[0]?.$message"
-      @update:modelValue="v$.form.media.$touch"
-    />
+      @update:modelValue="v$.form.media.$touch" />
 
     <ZRequiredInput
       v-model.number="form.price"
       label="Цена"
       :error-state="v$.form.price.$error"
       :on-error="v$.form.price.$errors[0]?.$message"
-      @update:modelValue="v$.form.price.$touch"
-    />
+      @update:modelValue="v$.form.price.$touch" />
 
-    <template #actions>
+    <template #actions >
       <ZButtonWithLoader
         class="product-form__button"
         type="submit"
-        v-bind="buttonProps"
-      >
+        v-bind="buttonProps" >
         Submit
       </ZButtonWithLoader>
     </template>
@@ -65,7 +59,7 @@ export default {
     ZTextarea,
     ZButtonWithLoader
   },
-  emits: ['submitted'],
+  emits: [ 'submitted' ],
   setup() {
     return {
       v$: useVuelidate()
@@ -88,7 +82,7 @@ export default {
   watch: {
     form: {
       handler() {
-        if(this.v$.$dirty && !this.v$.$error) {
+        if( this.v$.$dirty && !this.v$.$error ) {
           this.buttonProps.disabled = false
         } else {
           this.buttonProps.disabled = true
@@ -102,7 +96,7 @@ export default {
       form: {
         title: {
           required,
-          minLength: minLength(4)
+          minLength: minLength( 4 )
         },
         media: {
           required,
@@ -129,14 +123,14 @@ export default {
       }
       this.$refs.form.reset()
     },
-    setButtonLoadingState(state) {
+    setButtonLoadingState( state ) {
       this.buttonProps.loader = !!state
     },
 
     // Private
     emitSubmitted() {
-      const clone = Object.assign({}, this.form)
-      this.$emit('submitted', clone)
+      const clone = Object.assign( {}, this.form )
+      this.$emit( 'submitted', clone )
     },
 
   }
@@ -145,8 +139,8 @@ export default {
 
 <style lang="scss" scoped>
 .product-form {
-	&__button {
-		width: 100%;
-	}
+  &__button {
+    width: 100%;
+  }
 }
 </style>

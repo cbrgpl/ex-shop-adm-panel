@@ -1,14 +1,13 @@
-<template>
-  <ZFormField>
-    <template #input="{props, attrs}">
+<template >
+  <ZFormField >
+    <template #input="{props, attrs}" >
       <textarea
         class="form-field__input"
         v-bind="attrs"
         :data-error="props.errorState"
         :value="attrs.modelValue"
         cols="30"
-        @input="$emit('update:modelValue', $event.target.value)"
-      />
+        @input="$emit('update:modelValue', $event.target.value)" />
     </template>
   </ZFormField>
 </template>
@@ -21,7 +20,7 @@ export default {
   components: {
     ZFormField
   },
-  emits: ['update:modelValue']
+  emits: [ 'update:modelValue' ]
 }
 </script>
 

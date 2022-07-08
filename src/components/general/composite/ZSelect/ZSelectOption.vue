@@ -1,5 +1,5 @@
-<template>
-  <div class="select-option">
+<template >
+  <div class="select-option" >
     {{ displayValue }}
   </div>
 </template>
@@ -9,7 +9,7 @@ export default {
   name: 'ZSelectOption',
   props: {
     item: {
-      type: [String, Object],
+      type: [ String, Object ],
       required: true,
     },
     valueGetter: {
@@ -19,7 +19,7 @@ export default {
   },
   computed: {
     displayValue() {
-      return this.valueGetter(this.item)
+      return this.valueGetter( this.item )
     }
   }
 
@@ -28,13 +28,13 @@ export default {
 
 <style lang="scss" scoped>
 .select-option {
-	padding: rem(8px) rem(2px) rem(8px) rem(8px);
-	font-size: rem(15px);
-	cursor: pointer;
-	transition: all 120ms ease-out;
+  padding: rem(8px) rem(2px) rem(8px) rem(8px);
+  font-size: rem(15px);
+  cursor: pointer;
+  transition: all 120ms ease-out;
 
-	&:hover {
-		background: darken($surface, 4%);
-	}
+  &:hover {
+    background: darken($surface, 4%);
+  }
 }
 </style>

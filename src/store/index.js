@@ -1,6 +1,6 @@
 import { createStore } from 'vuex'
 
-export default createStore({
+export default createStore( {
   modules: {
   }
-})
+} )
